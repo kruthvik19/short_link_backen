@@ -10,15 +10,7 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(helmet());
-app.use(cors({ 
-  origin: [
-    'http://localhost:3000',     
-    'https://shortlink19.netlify.app' 
-  ],
-  methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],  // Explicitly allow these
-  allowedHeaders: ['Content-Type', 'Authorization'],  // If using auth/custom headers
-  credentials: true  // Only if your app sends cookies/auth; otherwise, omit
-}));
+app.use(cors({ origin: '*' })); 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -244,6 +236,7 @@ process.on('SIGTERM', () => {
   pool.end();
   process.exit(0);
 });
+
 
 
 
