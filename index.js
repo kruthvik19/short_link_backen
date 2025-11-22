@@ -21,6 +21,7 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
+  ssl: true  // Enable SSL for Neon (equivalent to sslmode=require)
 });
 
 // Helper: Generate random short code (5 chars, alphanumeric)
@@ -163,7 +164,7 @@ app.get('/:code', async (req, res) => {
   try {
     const query = `
       UPDATE links
-      SET clicks = clicks + 1, last_clicked_at = NOW(), updated_at = NOW()
+      SET clicks = clicks , last_clicked_at = NOW(), updated_at = NOW()
       WHERE code = $1
       RETURNING target_url
     `;
