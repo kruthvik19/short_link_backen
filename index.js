@@ -10,7 +10,12 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(helmet());
-app.use(cors({ origin: 'http://localhost:3000' })); // Adjust for your Next.js port
+app.use(cors({ 
+  origin: [
+    'http://localhost:3000',  // Local dev
+    'https://shortlink19.netlify.app'  // Production frontend
+  ],  // Optional: If your app uses cookies/auth; otherwise, omit
+})); // Adjust for your Next.js port
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -236,3 +241,4 @@ process.on('SIGTERM', () => {
   pool.end();
   process.exit(0);
 });
+
